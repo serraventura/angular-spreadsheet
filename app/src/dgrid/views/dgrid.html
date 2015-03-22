@@ -1,0 +1,66 @@
+<div id="text-element" >
+
+    <div style="float: left; margin-left: 15px;">
+
+        X: <input
+                type="radio"
+                name="raxis"
+                ng-model="axis"
+                ng-change="setAxis(axis)"
+                value="x"
+            />
+
+        Y: <input
+                type="radio"
+                name="raxis"
+                ng-model="axis"
+                ng-change="setAxis(axis)"
+                value="y"
+            />
+
+    </div>
+
+    <div style="float: right; margin-right: 15px;">
+
+        ID: <input
+                type="text"
+                name="dgId"
+                id="dgId"
+                maxlength=3
+                style="width: 50px"
+            />
+
+            <button id="btnDgId" name="btnDgId" ng-click="applyDataToSVG();">Apply</button>
+
+    </div>
+
+    <table class="dgrid" cellpadding="0" cellspacing="0">
+
+    	<thead>
+            <tr>
+                <th></th>
+                <th ng-if="lazyLoadColoumn($index)" ng-repeat="i in totalColumn track by $index">{{$index+1}}</th>
+            </tr>
+    	</thead>
+
+    	<tbody>
+    		<tr ng-if="lazyLoadRow($index)" ng-repeat="items in dataGrid track by $index" ng-init="counter = $index">
+    			<td><strong>{{$index+1}}</strong></td>
+    			<td ng-if="lazyLoadColoumn($index)" ng-repeat="item in items track by $index" ng-init="iteration = (counter * items.length + $index)">
+                    <input
+                        type="text"
+                        ng-model="item.value"
+                        ng-click="adaptLongContent($event, iteration);"
+                        ng-show="!isLongContent(iteration);"
+                    />
+                    <textarea
+                        class="dgrid-cell-long-content"
+                        ng-show="isLongContent(iteration);"
+                        ng-model="item.value"
+                    ></textarea>
+                </td>
+    		</tr>
+    	</tbody>
+
+    </table>
+</div>

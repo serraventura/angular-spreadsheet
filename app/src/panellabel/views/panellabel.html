@@ -1,0 +1,30 @@
+<div id="data-element">
+
+    <section-option-list></section-option-list>
+
+    <div class="element-available-datagrid">
+
+        <!-- DYN LOCAL ITEMS - X -->
+        <div ng-if="getAxis()=='x'">
+            <div ng-repeat="item in dataGrid[dataGridId]" ng-show="!isElementDataGridEmpty(item.value)">
+                <span ng-click="addElementToSection(item, dataGrid[0][$index] )" ng-bind="item.value"/></span>
+            </div>
+        </div>
+
+        <!-- DYN LOCAL ITEMS - Y -->
+        <div ng-if="getAxis()=='y'" ng-repeat="items in dataGrid track by $index">
+            <div ng-repeat="item in items[dataGridId] track by $index" ng-show="!isElementDataGridEmpty(item)">
+                <span ng-click="addElementToSection(items[$index], items )" ng-bind="item" /></span>
+            </div>
+        </div>
+
+        <!-- DB ITEMS -->
+        <div ng-repeat="data in dataElement | filter:{visible: true}"
+            data="{{data.value}}"
+            title="{{data.title}}"
+        >
+            <div class="element-db-available-datagrid" ng-click="addElementToSection(data)"><span ng-bind="data.value"/></span></div>
+        </div>
+    </div>
+
+</div>

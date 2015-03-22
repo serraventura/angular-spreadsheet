@@ -1,0 +1,11 @@
+# Created by http://www.gitignore.io
+
+### Yeoman ###
+node_modules/
+bower_components/
+*.log
+.DS_Store
+build/
+dist/
+.tmp/
+
