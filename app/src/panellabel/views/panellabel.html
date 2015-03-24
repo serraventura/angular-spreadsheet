@@ -18,13 +18,6 @@
             </div>
         </div>
 
-        <!-- DB ITEMS -->
-        <div ng-repeat="data in dataElement | filter:{visible: true}"
-            data="{{data.value}}"
-            title="{{data.title}}"
-        >
-            <div class="element-db-available-datagrid" ng-click="addElementToSection(data)"><span ng-bind="data.value"/></span></div>
-        </div>
     </div>
 
 </div>

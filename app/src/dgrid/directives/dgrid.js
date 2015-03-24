@@ -1,26 +1,25 @@
 'use strict';
 
 angular.module('angularSpreadsheetApp')
-  .directive('dgrid', function (InfochartData, InfochartStatus, InfochartSettings, $interval, $timeout) {
+  .directive('dgrid', function (SSData, SSStatus, SSSettings, $interval, $timeout) {
     return {
 
-
-      templateUrl: 'src/infochart/views/parts/dgrid.html',
+      templateUrl: 'src/dgrid/views/dgrid.html',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
         var maxIntervalColumnLoad = 5;
         scope.maxIntervalRowLoad = 5;
 
-        var isDataGridCached = InfochartData.isDataGridCached();
+        var isDataGridCached = SSData.isDataGridCached();
 
-        var attrCol = (attrs.column == "") ? InfochartSettings.dataGrid.minColumns : parseInt(attrs.column);
-        var attrRow = (attrs.row == "") ? InfochartSettings.dataGrid.minRows : parseInt(attrs.row);
+        var attrCol = (attrs.column == "") ? SSSettings.dataGrid.minColumns : parseInt(attrs.column);
+        var attrRow = (attrs.row == "") ? SSSettings.dataGrid.minRows : parseInt(attrs.row);
 
-        var col = (InfochartStatus.get().dgrid.column == null) ? attrCol : InfochartStatus.get().dgrid.column;
-        var row = (InfochartStatus.get().dgrid.row == null) ? attrRow : InfochartStatus.get().dgrid.row;
+        var col = (SSStatus.get().dgrid.column == null) ? attrCol : SSStatus.get().dgrid.column;
+        var row = (SSStatus.get().dgrid.row == null) ? attrRow : SSStatus.get().dgrid.row;
 
-        var dgid = (InfochartStatus.get().dgrid._pIGID == null) ? InfochartStatus.get().dgrid._dgId : InfochartStatus.get().dgrid._pIGID;
+        var dgid = (SSStatus.get().dgrid._pIGID == null) ? SSStatus.get().dgrid._dgId : SSStatus.get().dgrid._pIGID;
 
         function getTotalColumn(num){
             return new Array(parseInt(num));
@@ -55,9 +54,9 @@ angular.module('angularSpreadsheetApp')
                 highlightAxis();
             });
 
-            if (InfochartStatus.get().dgrid.axis == 'x') {
+            if (SSStatus.get().dgrid.axis == 'x') {
                 xAxis.trigger('click');
-            }else if (InfochartStatus.get().dgrid.axis == 'y') {
+            }else if (SSStatus.get().dgrid.axis == 'y') {
                 yAxis.trigger('click');
             };
 
@@ -74,7 +73,7 @@ angular.module('angularSpreadsheetApp')
                 DGRIDDataManagementByAxis(2, 'x', [], false); -- returns based on the X axis an especific line;
                 DGRIDDataManagementByAxis(2, 'x', [], true); -- returns based on the X axis all lines with data;
 
-                var array = InfochartStatus.get().svg.elements.text; // [{key: 'var', value: 'test 1'}]
+                var array = SSStatus.get().svg.elements.text; // [{key: 'var', value: 'test 1'}]
                 DGRIDDataManagementByAxis(2, 'x', array, false);
                 -- Same behavior that the previous parameter, but in this case insert data in the DGRID.
             */
@@ -241,7 +240,7 @@ angular.module('angularSpreadsheetApp')
 
         function highlightAxis(){
 
-            var axis = InfochartStatus.get().dgrid.axis;
+            var axis = SSStatus.get().dgrid.axis;
             var xEl = $('.dgrid > tbody > tr:eq(0) > td > input');
             var allEl = $('.dgrid > tbody > tr > td > input');
 
@@ -270,8 +269,8 @@ angular.module('angularSpreadsheetApp')
             var axis = null;
 
             elValue = (elValue == '' || elValue == undefined) ? dgid : parseInt(elValue);
-            InfochartStatus.set().dgrid._dgId(elValue);
-            axis = InfochartStatus.get().dgrid.axis;
+            SSStatus.set().dgrid._dgId(elValue);
+            axis = SSStatus.get().dgrid.axis;
 
             arrDgrid = DGRIDDataManagementByAxis(elValue, axis); //getDataFromDgrid(elValue);
 
@@ -305,11 +304,11 @@ angular.module('angularSpreadsheetApp')
 
             if (!isDataGridCached) {
 
-                var svgTextEl = InfochartStatus.get().svg.elements.text;
+                var svgTextEl = SSStatus.get().svg.elements.text;
 
                 if (svgTextEl.length > col) {
 
-                    InfochartStatus.set().dgrid.axis('y');
+                    SSStatus.set().dgrid.axis('y');
 
                     if (svgTextEl.length > row) {
 
@@ -362,7 +361,7 @@ angular.module('angularSpreadsheetApp')
         };
 
         scope.setAxis = function(axis){
-            InfochartStatus.set().dgrid.axis(axis);
+            SSStatus.set().dgrid.axis(axis);
         };
 
         scope.applyDataToSVG = function(){
@@ -395,17 +394,17 @@ angular.module('angularSpreadsheetApp')
 
         }, 1000, (attrs.row/scope.maxIntervalRowLoad) );
 
-        scope.dataGrid = InfochartData.generateDataGrid(col, row);
+        scope.dataGrid = SSData.generateDataGrid(col, row);
         scope.totalColumn = getTotalColumn(col);
-        scope.axis = InfochartStatus.get().dgrid.axis;
+        scope.axis = SSStatus.get().dgrid.axis;
 
-        InfochartStatus.set().dgrid.column(col);
-        InfochartStatus.set().dgrid.row(row);
+        SSStatus.set().dgrid.column(col);
+        SSStatus.set().dgrid.row(row);
 
         // watch
         scope.$watch(function() {
             //if all the SVGs content are loaded this watch will be triggered
-            return InfochartStatus.get().svg.isAllSVGDone;
+            return SSStatus.get().svg.isAllSVGDone;
         }, function(newVal, oldVal) {
 
             if (newVal !== oldVal) {
@@ -418,7 +417,7 @@ angular.module('angularSpreadsheetApp')
 
                     if (!isDataGridCached) {
                         //insert data from SVG into DGRID
-                        DGRIDDataManagementByAxis(dgid, InfochartStatus.get().dgrid.axis, InfochartStatus.get().svg.elements.text);
+                        DGRIDDataManagementByAxis(dgid, SSStatus.get().dgrid.axis, SSStatus.get().svg.elements.text);
                     };
 
                     loadSetup();

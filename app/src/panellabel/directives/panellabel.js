@@ -1,25 +1,22 @@
 'use strict';
 
-angular.module('inovniReportApp')
-.directive('panelLabel', function (InfochartStatus, InfochartDataAvailable) {
+angular.module('angularSpreadsheetApp')
+.directive('panelLabel', function (SSStatus) {
     return {
-      templateUrl: 'src/infochart/views/parts/panellabel.html',
+      templateUrl: 'src/panellabel/views/panellabel.html',
       restrict: 'E',
-      priority: 3,
       link: function postLink(scope, element, attrs) {
 
         function convertGridIdToPanel(id){
             return (id == null) ? id : (id-1);
         };
 
-        var dgId = (InfochartStatus.get().dgrid._pIGID == null) ? InfochartStatus.get().dgrid._dgId : InfochartStatus.get().dgrid._pIGID;
-
-        scope.dataElement = InfochartDataAvailable.getData().elements.data;
+        var dgId = (SSStatus.get().dgrid._pIGID == null) ? SSStatus.get().dgrid._dgId : SSStatus.get().dgrid._pIGID;
 
         scope.dataGridId = convertGridIdToPanel(dgId);
 
         scope.getAxis = function(){
-            return InfochartStatus.get().dgrid.axis;
+            return SSStatus.get().dgrid.axis;
         };
 
         scope.isElementDataGridEmpty = function(item){
@@ -30,7 +27,7 @@ angular.module('inovniReportApp')
                 ret = true;
             };
 
-            if (InfochartStatus.get().dgrid._dgId == 0) {
+            if (SSStatus.get().dgrid._dgId == 0) {
                 ret = true;
             };
 
@@ -48,9 +45,9 @@ angular.module('inovniReportApp')
                 labelId = labelId+'@';
             }
 
-            var sectionId = InfochartStatus.get().section.selectedSectionId;
-            var latestPositionY = InfochartStatus.get().svg.elements.latestPositionY;
-            var latestPositionX = InfochartStatus.get().svg.elements.latestPositionX;
+            var sectionId = SSStatus.get().section.selectedSectionId;
+            var latestPositionY = SSStatus.get().svg.elements.latestPositionY;
+            var latestPositionX = SSStatus.get().svg.elements.latestPositionX;
             var yTop = 0;
             var yMargin = 20;
             var xMargin = 50;
@@ -82,8 +79,8 @@ angular.module('inovniReportApp')
             }
 
             // keep status up to date
-            InfochartStatus.set().svg.elements.latestPositionY(yTop);
-            InfochartStatus.set().svg.elements.latestPositionX(latestPositionX);
+            SSStatus.set().svg.elements.latestPositionY(yTop);
+            SSStatus.set().svg.elements.latestPositionX(latestPositionX);
 
             var t = s.text(latestPositionX, yTop, dataElement.value);
 
@@ -104,11 +101,11 @@ angular.module('inovniReportApp')
 
         // watch
         scope.$watch(function() {
-            return InfochartStatus.get().dgrid._dgId;
+            return SSStatus.get().dgrid._dgId;
         }, function(newVal, oldVal) {
 
             if (newVal !== oldVal) {
-                scope.dataGridId = convertGridIdToPanel(InfochartStatus.get().dgrid._dgId);
+                scope.dataGridId = convertGridIdToPanel(SSStatus.get().dgrid._dgId);
             }
 
         }, false);
