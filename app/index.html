@@ -47,20 +47,25 @@
     <script src="vendor/bower_components/es5-shim/es5-shim.js"></script>
     <script src="vendor/bower_components/angular/angular.js"></script>
     <script src="vendor/bower_components/json3/lib/json3.min.js"></script>
+    <script src="vendor/bower_components/jquery-1.9.1/index.js"></script>
+    <script src="vendor/bower_components/angular-local-storage/angular-local-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) src/scripts.js -->
         <script src="src/app.js"></script>
+
         <script src="src/common/controllers/main.js"></script>
+        <script src="src/common/scripts/util.js"></script>
+        <script src="src/common/services/SSStatus.js"></script>
+
         <script src="src/dgrid/controllers/dgrid.js"></script>
         <script src="src/dgrid/directives/dgrid.js"></script>
-        <script src="src/dgrid/services/dgrid.js"></script>
-        <script src="src/dgrid/services/dgrid2.js"></script>
-        <script src="src/dgrid/services/dgrid3.js"></script>
+        <script src="src/dgrid/services/SSData.js"></script>
+        <script src="src/dgrid/services/SSSettings.js"></script>
+
         <script src="src/panelLabel/controllers/panelLabel.js"></script>
         <script src="src/panelLabel/directives/panelLabel.js"></script>
-        <script src="src/panelLabel/services/panelLabel.js"></script>
         <!-- endbuild -->
 </body>
 </html>

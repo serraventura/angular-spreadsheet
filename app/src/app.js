@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('angularSpreadsheetApp', []);
+angular.module('angularSpreadsheetApp', [
+	'LocalStorageModule'
+])

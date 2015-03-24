@@ -30,10 +30,6 @@ angular.module('angularSpreadsheetApp')
         return ret;
     };
 
-    var getDatabaseLabels = function(){
-
-    };
-
     var getDBCache = function(key){
 
         var cacheDB = localStorageService.get('db');

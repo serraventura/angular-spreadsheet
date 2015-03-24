@@ -5,6 +5,7 @@
     "angular": "1.2.5",
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
+    "jquery-1.9.1": "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
     "angular-local-storage": "~0.0.6"
   },
   "devDependencies": {
