@@ -157,11 +157,13 @@ angular.module('angularSpreadsheetApp')
         SSStatus.set().dgrid.column(col);
         SSStatus.set().dgrid.row(row);
 
-loadSetup();
-simulateTypedContent();
+        // wait the digest cicle finish
+        $timeout(function(){
 
+            loadSetup();
+            simulateTypedContent();
 
-
+        }, 0, false);
 
       }
 

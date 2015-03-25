@@ -10,8 +10,7 @@ angular.module('angularSpreadsheetApp')
             column: null,
             row: null
         },
-        dataGrid: null,
-        databaseLabels: null
+        dataGrid: null
     };
 
     var getDataGrid = function(){
