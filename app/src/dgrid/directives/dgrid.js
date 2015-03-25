@@ -65,7 +65,7 @@ angular.module('angularSpreadsheetApp')
 
             // trigger text element change in the SVG
             // all the text element will match the data DGRID
-            $('#dgId').val(dgid);
+            //$('#dgId').val(dgid);
             $('#btnDgId').trigger('click');
 
         };
@@ -92,6 +92,8 @@ angular.module('angularSpreadsheetApp')
             };
 
         };
+
+        scope.dom = {dgId: dgid};
 
         scope.isLongContent = function(idx){
             return longContentChecked && (longContentIndex == idx);
@@ -128,6 +130,10 @@ angular.module('angularSpreadsheetApp')
 
         scope.setAxis = function(axis){
             SSStatus.set().dgrid.axis(axis);
+        };
+
+        scope.setId = function(){
+            SSStatus.set().dgrid._dgId(scope.dom.dgId);
         };
 
         $interval(function(){

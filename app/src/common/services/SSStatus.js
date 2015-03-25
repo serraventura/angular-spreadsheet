@@ -18,7 +18,6 @@ angular.module('angularSpreadsheetApp')
 
   	};
 
-
     this.setAppStatus = {
 
         dgrid:{
